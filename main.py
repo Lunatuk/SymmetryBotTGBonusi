@@ -68,28 +68,6 @@ async def update_token_periodically():
         await asyncio.sleep(900)  # 900 секунд = 15 минут
 
 
-
-async def send_periodic_message():
-    
-    id_antona = [
-        1267549654,
-        512569038
-    ]
-    for admin in id_antona:
-        try:
-            # Здесь может быть ваше сообщение
-            message_text = "Теперь каждые 6 часов я напоминаю тебе о том, что меня надо развивать дальше, а Ване, тем самым, заработать денег на его мечту"
-            # message_text = "Я все еще жду ответа насчет тз"
-            await bot.send_message(admin, message_text)
-            await bot.send_sticker(admin, 'CAACAgIAAxkBAAEKxIdlVoB_BCjTOyFchb5CfoxBLtGYngACcQADwZxgDLQUllqSxnk0MwQ')
-        except Exception as e:
-            logging.error(f"Ошибка при отправке периодического сообщения: {e}")
-
-async def periodic_task():
-    while True:
-        await send_periodic_message()
-        await asyncio.sleep(6 * 60 * 60)
-
 # Создаем экземпляры бота и диспетчера
 bot = Bot(token=config.BOT_TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
@@ -227,7 +205,6 @@ async def handle_other_messages(message: types.Message):
 
 async def main():
     asyncio.create_task(update_token_periodically())
-    loop.create_task(periodic_task())
     await dp.start_polling()
 
 if __name__ == '__main__':
